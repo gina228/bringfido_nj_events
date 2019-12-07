@@ -12,3 +12,5 @@ require "bringfido_nj_events"
 
 require "irb"
 IRB.start(__FILE__)
+
+BringfidoNjEvents::CLI.new.start
