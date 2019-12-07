@@ -1,6 +1,7 @@
 require 'open-uri'
 require 'nokogiri'
 
+
 class BringfidoNjEvents::CLI
   
   @@all = []
@@ -29,8 +30,19 @@ class BringfidoNjEvents::CLI
   def self.menu
     puts "Type in the number that corresponds with the event to get more information"
     input = gets.strip
+    if input.class == String
+      if input.downcase == "exit"
+        self.quit 
+      end 
+    end
+    
     index = input.to_i - 1
-    if index > 0 && index < @@all.size
+    if index >= 0 && index < @@all.size
+      more_info = Scraper.new(@@all[index]).url
+      puts "#{more_info.}"
+    else 
+      puts "I'm not sure I understand. Please try again."
+      self.menu
     end
   
   
@@ -39,6 +51,10 @@ class BringfidoNjEvents::CLI
     
     #check input is in range / valid 
     #scrape @@all[input-1].url
+  end
+  
+  def self.quit
+    #how to quit the program
   end
   
 end
